@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String              @id @default(uuid())
+  name              String
+  email             String              @unique
+  password          String
+  role              Role
+  batches           Batch[]             @relation("UserBatches")
+  StudentAssignment StudentAssignment[]
+}
+
+model Batch {
+  id          String       @id @default(uuid())
+  name        String
+  students    User[]       @relation("UserBatches")
+  assignments Assignment[] @relation("BatchAssignments")
+  pptLinks    String[]
+}
+
+model Assignment {
+  id          String              @id @default(uuid())
+  batchId     String
+  batch       Batch               @relation("BatchAssignments", fields: [batchId], references: [id])
+  title       String
+  content     String
+  deadline    DateTime
+  submittedBy StudentAssignment[] @relation("AssignmentSubmissions")
+}
+
+model StudentAssignment {
+  id           String     @id @default(uuid())
+  studentId    String
+  student      User       @relation(fields: [studentId], references: [id])
+  assignmentId String
+  assignment   Assignment @relation("AssignmentSubmissions", fields: [assignmentId], references: [id])
+  fileUrl      String
+}
+
+enum Role {
+  ADMIN
+  TRAINER
+  STUDENT
+}
