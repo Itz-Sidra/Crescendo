@@ -5,6 +5,9 @@ const Registration = () => {
   const [formData, setFormData] = useState({
     name: '',
     parentName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
     photo: null,
     contactNumber: '',
     parentContactNumber: '',
@@ -21,6 +24,11 @@ const Registration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
     const formDataToSend = new FormData();
     for (const key in formData) {
       formDataToSend.append(key, formData[key]);
@@ -50,6 +58,9 @@ const Registration = () => {
         {[
           { label: 'Name', name: 'name', type: 'text' },
           { label: 'Parent Name', name: 'parentName', type: 'text' },
+          { label: 'Email', name: 'email', type: 'email' },
+          { label: 'Password', name: 'password', type: 'password' },
+          { label: 'Confirm Password', name: 'confirmPassword', type: 'password' },
           { label: 'Contact Number', name: 'contactNumber', type: 'tel' },
           { label: 'Parent Contact Number', name: 'parentContactNumber', type: 'tel' },
         ].map(({ label, name, type }) => (
