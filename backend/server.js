@@ -7,6 +7,7 @@ import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import multer from "multer";
 import path from "path";
+import bcrypt from "bcryptjs";
 
 const app = express();
 const db = new PrismaClient();
@@ -33,15 +34,22 @@ app.get("/", (req, res) => {
 
 // Registration endpoint
 app.post("/register", upload.fields([{ name: 'photo' }, { name: 'resume' }]), async (req, res) => {
-  const { name, parentName, contactNumber, parentContactNumber } = req.body;
+  console.log(req.body);
+  console.log(req.files);
+
+  const { name, parentName, email, password, contactNumber, parentContactNumber } = req.body;
   const photo = req.files['photo'][0].path;
   const resume = req.files['resume'][0].path;
 
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newStudent = await db.student.create({
       data: {
         name,
         parentName,
+        email,
+        password: hashedPassword,
         photo,
         contactNumber,
         parentContactNumber,
