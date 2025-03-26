@@ -50,6 +50,16 @@ model StudentAssignment {
   fileUrl      String
 }
 
+model Student {
+  id                   Int      @id @default(autoincrement())
+  name                 String
+  parentName           String
+  photo                String
+  contactNumber        String
+  parentContactNumber  String
+  resume               String
+}
+
 enum Role {
   ADMIN
   TRAINER

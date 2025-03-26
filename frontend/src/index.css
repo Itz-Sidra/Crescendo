@@ -1,3 +1,8 @@
+/* filepath: c:\Users\vasip\OneDrive\Desktop\College\hkt1\Crescendo\frontend\src\index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -20,6 +25,17 @@ a {
 }
 a:hover {
   color: #535bf2;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Inter', 'Inter Fallback', sans-serif;
 }
 
 body {
@@ -52,6 +68,63 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.container {
+  width: 100%;
+  max-width: 32rem; /* max-w-lg */
+  padding: 2rem; /* p-8 */
+  background-color: white; /* bg-white */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* shadow-lg */
+  border-radius: 0.5rem; /* rounded-lg */
+  margin: auto;
+  overflow-y: auto; /* Ensure content is scrollable if it overflows */
+  max-height: 90vh; /* Ensure the container doesn't exceed the viewport height */
+}
+
+.form-title {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 600; /* font-semibold */
+  text-align: center;
+  color: #38a169; /* text-green-600 */
+}
+
+.form-group {
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem; /* mb-2 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  color: #4a5568; /* text-gray-700 */
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border: 1px solid #cbd5e0; /* border-gray-300 */
+  border-radius: 0.375rem; /* rounded-lg */
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  border-color: #48bb78; /* focus:ring-2 focus:ring-green-400 */
+}
+
+.form-button {
+  width: 100%;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  color: white;
+  background-color: #38a169; /* bg-green-600 */
+  border-radius: 0.375rem; /* rounded-md */
+  transition: background-color 0.2s;
+}
+
+.form-button:hover {
+  background-color: #2f855a; /* hover:bg-green-700 */
 }
 
 @media (prefers-color-scheme: light) {
