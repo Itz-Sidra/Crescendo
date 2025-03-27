@@ -11,7 +11,8 @@ const SECRET_KEY = process.env.JWT_SECRET || "supersecretkey";
 // 🟢 Signup Controller
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
+    const role = "ADMIN"; // 🔹 Force admin role
 
     // Check if email already exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -25,11 +26,12 @@ export const registerUser = async (req, res) => {
       data: { name, email, password: hashedPassword, role },
     });
 
-    res.status(201).json({ message: "User registered successfully", user });
+    res.status(201).json({ message: "Admin registered successfully", user });
   } catch (error) {
-    res.status(500).json({ error: "Error registering user" });
+    res.status(500).json({ error: "Error registering admin", details: error.message });
   }
 };
+
 
 // 🟠 Login Controller
 export const loginUser = async (req, res) => {

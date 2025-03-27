@@ -32,7 +32,7 @@ export const createUser = async (req, res) => {
 
     res.status(201).json({ message: "User created successfully!", user });
   } catch (error) {
-    res.status(500).json({ message: "Error creating user", error });
+    res.status(500).json({ message: "Error creating user", error: error.message });
   }
 };
 
@@ -40,7 +40,19 @@ export const createTrainer = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    // Check if the email already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists!" });
+    }
+
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new trainer
     const newTrainer = await prisma.user.create({
       data: {
         name,
@@ -60,6 +72,10 @@ export const createTrainer = async (req, res) => {
       },
     });
   } catch (error) {
+    if (error.code === "P2002") {
+      // Handle Prisma unique constraint error
+      return res.status(400).json({ message: "Email is already in use!" });
+    }
     res.status(500).json({ message: "Error creating trainer", error: error.message });
   }
 };
