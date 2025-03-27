@@ -82,6 +82,3 @@ Go to `http://localhost:5000/api-docs`
 
 
 ---
-
-## 📜 **License**  
-This project is licensed under the **MIT License**.  
