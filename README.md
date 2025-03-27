@@ -30,7 +30,7 @@ Problem Statement 3
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | **POST** | `/api/auth/register-admin` | Register a new admin |
-| **POST** | `/api/auth/login` | Login user (Admin/Trainer/Student) |
+| **POST** | `/api/auth/login` | Login user (Admin(for now...later we will add for trainer and student)) |
 | **POST** | `/api/users/create-trainer` | Create a new trainer |
 
 🔗 **API Documentation:** [Swagger UI](http://localhost:5000/api-docs)  
